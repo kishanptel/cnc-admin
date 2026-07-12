@@ -58,7 +58,7 @@ export default function Login() {
           <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(61, 35, 20, 0.08)', color: 'var(--accent)', marginBottom: '16px' }}>
             <LogIn size={22} />
           </div>
-          <h2 style={{ fontSize: '1.65rem', fontWeight: '800', color: 'var(--navy)', marginBottom: '6px' }}>Sweet Shop Admin</h2>
+          <h2 style={{ fontSize: '1.65rem', fontWeight: '800', color: 'var(--navy)', marginBottom: '6px' }}>Cacao & Crumb Admin</h2>
           <p style={{ color: 'var(--text-dim)', fontSize: '.875rem' }}>Sign in to manage your storefront</p>
         </div>
 

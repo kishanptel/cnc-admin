@@ -307,8 +307,8 @@ export default function Dashboard() {
       {/* Sidebar Nav */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <img src="/sweet_shop_logo.png" alt="Sweet Shop Logo" className="sidebar-logo" />
-          <h2 className="sidebar-title">Sweet Shop</h2>
+          <img src="/sweet_shop_logo.png" alt="Cacao & Crumb Logo" className="sidebar-logo" />
+          <h2 className="sidebar-title">Cacao & Crumb</h2>
         </div>
 
         <nav className="sidebar-nav">
@@ -352,7 +352,7 @@ export default function Dashboard() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img 
               src="/sweet_shop_logo.png" 
-              alt="Sweet Shop Logo" 
+              alt="Cacao & Crumb Logo" 
               className="top-bar-logo" 
             />
             <div>
