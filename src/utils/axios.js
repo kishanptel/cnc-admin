@@ -8,6 +8,7 @@ if (apiURL && !apiURL.startsWith('http://') && !apiURL.startsWith('https://')) {
 const instance = axios.create({
   baseURL: apiURL,
   timeout: 10000,
+  withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
   }

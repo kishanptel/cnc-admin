@@ -63,11 +63,27 @@ export default function Dashboard() {
     const savedAdmin = localStorage.getItem('sweet_shop_admin');
     if (!savedAdmin) {
       navigate('/login');
-    } else {
-      const parsed = JSON.parse(savedAdmin);
-      setAdmin(parsed);
-      setNewEmail(parsed.email);
+      return;
     }
+
+    const parsed = JSON.parse(savedAdmin);
+    setAdmin(parsed);
+    setNewEmail(parsed.email);
+
+    const verifySession = async () => {
+      try {
+        const res = await instance.get('/users/me');
+        if (res.data?.success && res.data.Data.isAdmin) {
+          setAdmin(res.data.Data);
+          localStorage.setItem('sweet_shop_admin', JSON.stringify(res.data.Data));
+        } else {
+          handleLogout();
+        }
+      } catch (err) {
+        handleLogout();
+      }
+    };
+    verifySession();
   }, [navigate]);
 
   // Global click handler to dismiss dropdowns
@@ -126,9 +142,14 @@ export default function Dashboard() {
     }
   }, [admin]);
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     localStorage.removeItem('sweet_shop_admin');
     navigate('/login');
+    try {
+      await instance.post('/users/logout');
+    } catch (e) {
+      // Ignored
+    }
   };
 
   const handleStatusChange = async (orderId, newStatus) => {
