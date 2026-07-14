@@ -12,7 +12,7 @@ export default function Login() {
 
   // Authenticate Admin session
   useEffect(() => {
-    const admin = localStorage.getItem('sweet_shop_admin');
+    const admin = localStorage.getItem('cacaoncrumb_admin');
     if (admin) {
       navigate('/dashboard');
     }
@@ -28,7 +28,7 @@ export default function Login() {
       if (res.data?.success) {
         const userData = res.data.Data;
         if (userData.isAdmin) {
-          localStorage.setItem('sweet_shop_admin', JSON.stringify(userData));
+          localStorage.setItem('cacaoncrumb_admin', JSON.stringify(userData));
           navigate('/dashboard');
         } else {
           setError('Access denied. Administrator privileges required.');
@@ -78,7 +78,7 @@ export default function Login() {
               <input 
                 type="email" 
                 id="email" 
-                placeholder="admin@cacao&crumb.in" 
+                placeholder="admin@cacaoncrumb.in" 
                 className="form-input"
                 style={{ paddingLeft: '44px' }}
                 value={email}
