@@ -78,7 +78,7 @@ export default function Login() {
               <input 
                 type="email" 
                 id="email" 
-                placeholder="admin@sweetshop.in" 
+                placeholder="admin@cacao&crumb.in" 
                 className="form-input"
                 style={{ paddingLeft: '44px' }}
                 value={email}
