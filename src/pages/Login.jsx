@@ -52,7 +52,7 @@ export default function Login() {
         <div className="global-loader-overlay">
           <div className="loader-spinner-wrap">
             <div className="loader-circle-spinner"></div>
-            <img src="/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
+            <img src="https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
           </div>
           <p className="loader-text">Verifying credentials...</p>
         </div>
@@ -112,7 +112,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+          <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginTop: '12px', marginBottom: '28px' }}>
             <input 
               type="checkbox" 
               id="rememberMe" 
