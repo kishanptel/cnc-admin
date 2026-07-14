@@ -519,6 +519,7 @@ input, button, select, textarea {
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .user-name-table {

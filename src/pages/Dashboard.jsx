@@ -28,16 +28,12 @@ export default function Dashboard() {
   const [admin, setAdmin] = useState(null);
 
   const getAvatarUrl = (profilePath) => {
-    if (!profilePath) return 'https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png';
+    if (!profilePath) return '/cacaoncrumb_logo.png';
     let path = profilePath;
     if (path.includes('sweet_shop_logo.png')) {
       path = path.replace('sweet_shop_logo.png', 'cacaoncrumb_logo.png');
     }
-    if (path.startsWith('http://') || path.startsWith('https://')) {
-      return path;
-    }
-    const storefrontUrl = 'https://cnc-frontend-sage.vercel.app';
-    return `${storefrontUrl}${path.startsWith('/') ? '' : '/'}${path}`;
+    return path;
   };
   const [activeTab, setActiveTab] = useState('overview'); // overview, orders, users, settings
   const [usersList, setUsersList] = useState([]);
@@ -290,7 +286,7 @@ export default function Dashboard() {
       <div className="global-loader-overlay" style={{ background: 'var(--surface)' }}>
         <div className="loader-spinner-wrap">
           <div className="loader-circle-spinner"></div>
-          <img src="https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
+          <img src="/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
         </div>
         <p className="loader-text">Loading sweet dashboard metrics...</p>
       </div>
@@ -352,7 +348,7 @@ export default function Dashboard() {
       {/* Sidebar Nav */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <img src="https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png" alt="Cacao & Crumb Logo" className="sidebar-logo" />
+          <img src="/cacaoncrumb_logo.png" alt="Cacao & Crumb Logo" className="sidebar-logo" />
           <h2 className="sidebar-title">Cacao & Crumb</h2>
         </div>
 
@@ -396,7 +392,7 @@ export default function Dashboard() {
         <header className="top-bar">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img 
-              src="https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png" 
+              src="/cacaoncrumb_logo.png" 
               alt="Cacao & Crumb Logo" 
               className="top-bar-logo" 
             />
@@ -702,7 +698,7 @@ export default function Dashboard() {
                                 {user.profile ? (
                                   <img src={getAvatarUrl(user.profile)} alt={user.name} className="user-avatar-table" style={{ border: '2px solid var(--gold)', boxShadow: 'var(--shadow-sm)' }} />
                                 ) : (
-                                  <div className="user-avatar-table-fallback" style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, #3d2314, #52301c)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '0.85rem', border: '2px solid var(--gold)', boxShadow: 'var(--shadow-sm)' }}>
+                                  <div className="user-avatar-table-fallback" style={{ width: '36px', height: '36px', borderRadius: '50%', background: 'linear-gradient(135deg, #3d2314, #52301c)', color: '#ffffff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: '800', fontSize: '0.85rem', border: '2px solid var(--gold)', boxShadow: 'var(--shadow-sm)', flexShrink: 0 }}>
                                     {user.name.split(' ').map(n => n[0]).slice(0,2).join('').toUpperCase()}
                                   </div>
                                 )}
@@ -855,7 +851,7 @@ export default function Dashboard() {
         <div className="global-loader-overlay">
           <div className="loader-spinner-wrap">
             <div className="loader-circle-spinner"></div>
-            <img src="https://cnc-frontend-sage.vercel.app/cacaoncrumb_logo.png" alt="Pulsing Cake" className="loader-logo-pulsing" />
+            <img src="/cacaoncrumb_logo.png" alt="Pulsing Cake" className="loader-logo-pulsing" />
           </div>
           <p className="loader-text">Saving sweet changes...</p>
         </div>
