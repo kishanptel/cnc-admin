@@ -7,12 +7,13 @@ export default function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   // Authenticate Admin session
   useEffect(() => {
-    const admin = localStorage.getItem('cacaoncrumb_admin');
+    const admin = localStorage.getItem('cacaoncrumb_admin') || sessionStorage.getItem('cacaoncrumb_admin');
     if (admin) {
       navigate('/dashboard');
     }
@@ -28,7 +29,11 @@ export default function Login() {
       if (res.data?.success) {
         const userData = res.data.Data;
         if (userData.isAdmin) {
-          localStorage.setItem('cacaoncrumb_admin', JSON.stringify(userData));
+          if (rememberMe) {
+            localStorage.setItem('cacaoncrumb_admin', JSON.stringify(userData));
+          } else {
+            sessionStorage.setItem('cacaoncrumb_admin', JSON.stringify(userData));
+          }
           navigate('/dashboard');
         } else {
           setError('Access denied. Administrator privileges required.');
@@ -47,7 +52,7 @@ export default function Login() {
         <div className="global-loader-overlay">
           <div className="loader-spinner-wrap">
             <div className="loader-circle-spinner"></div>
-            <img src="/sweet_shop_logo.png" alt="Loading" className="loader-logo-pulsing" />
+            <img src="/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
           </div>
           <p className="loader-text">Verifying credentials...</p>
         </div>
@@ -78,7 +83,7 @@ export default function Login() {
               <input 
                 type="email" 
                 id="email" 
-                placeholder="admin@cacaoncrumb.in" 
+                placeholder="admin@cacaoncrumb.com" 
                 className="form-input"
                 style={{ paddingLeft: '44px' }}
                 value={email}
@@ -88,7 +93,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="form-group" style={{ marginBottom: '24px' }}>
+          <div className="form-group" style={{ marginBottom: '16px' }}>
             <label htmlFor="password" className="form-label">Password *</label>
             <div style={{ position: 'relative' }}>
               <span style={{ position: 'absolute', left: '14px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-dim)' }}>
@@ -105,6 +110,19 @@ export default function Login() {
                 required
               />
             </div>
+          </div>
+
+          <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px' }}>
+            <input 
+              type="checkbox" 
+              id="rememberMe" 
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--accent)' }}
+            />
+            <label htmlFor="rememberMe" style={{ fontSize: '0.85rem', color: 'var(--text-dim)', cursor: 'pointer', userSelect: 'none' }}>
+              Remember Me
+            </label>
           </div>
 
           <button type="submit" className="btn btn-primary btn-block" disabled={loading}>

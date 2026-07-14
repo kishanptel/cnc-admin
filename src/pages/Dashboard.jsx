@@ -60,7 +60,7 @@ export default function Dashboard() {
 
   // Authenticate Admin
   useEffect(() => {
-    const savedAdmin = localStorage.getItem('sweet_shop_admin');
+    const savedAdmin = localStorage.getItem('cacaoncrumb_admin') || sessionStorage.getItem('cacaoncrumb_admin');
     if (!savedAdmin) {
       navigate('/login');
       return;
@@ -75,12 +75,18 @@ export default function Dashboard() {
         const res = await instance.get('/users/me');
         if (res.data?.success && res.data.Data.isAdmin) {
           setAdmin(res.data.Data);
-          localStorage.setItem('sweet_shop_admin', JSON.stringify(res.data.Data));
+          if (localStorage.getItem('cacaoncrumb_admin')) {
+            localStorage.setItem('cacaoncrumb_admin', JSON.stringify(res.data.Data));
+          } else {
+            sessionStorage.setItem('cacaoncrumb_admin', JSON.stringify(res.data.Data));
+          }
         } else {
           handleLogout();
         }
       } catch (err) {
-        handleLogout();
+        if (err.response && [401, 403, 404].includes(err.response.status)) {
+          handleLogout();
+        }
       }
     };
     verifySession();
@@ -143,7 +149,8 @@ export default function Dashboard() {
   }, [admin]);
 
   const handleLogout = async () => {
-    localStorage.removeItem('sweet_shop_admin');
+    localStorage.removeItem('cacaoncrumb_admin');
+    sessionStorage.removeItem('cacaoncrumb_admin');
     navigate('/login');
     try {
       await instance.post('/users/logout');
@@ -182,7 +189,11 @@ export default function Dashboard() {
 
       if (res.data?.success) {
         const updatedAdmin = res.data.admin;
-        localStorage.setItem('sweet_shop_admin', JSON.stringify(updatedAdmin));
+        if (localStorage.getItem('cacaoncrumb_admin')) {
+          localStorage.setItem('cacaoncrumb_admin', JSON.stringify(updatedAdmin));
+        } else {
+          sessionStorage.setItem('cacaoncrumb_admin', JSON.stringify(updatedAdmin));
+        }
         setAdmin(updatedAdmin);
         setNewPassword('');
         setSettingsMessage('Settings saved successfully! Email and password updated.');
@@ -266,7 +277,7 @@ export default function Dashboard() {
       <div className="global-loader-overlay" style={{ background: 'var(--surface)' }}>
         <div className="loader-spinner-wrap">
           <div className="loader-circle-spinner"></div>
-          <img src="/sweet_shop_logo.png" alt="Loading" className="loader-logo-pulsing" />
+          <img src="/cacaoncrumb_logo.png" alt="Loading" className="loader-logo-pulsing" />
         </div>
         <p className="loader-text">Loading sweet dashboard metrics...</p>
       </div>
@@ -328,7 +339,7 @@ export default function Dashboard() {
       {/* Sidebar Nav */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <img src="/sweet_shop_logo.png" alt="Cacao & Crumb Logo" className="sidebar-logo" />
+          <img src="/cacaoncrumb_logo.png" alt="Cacao & Crumb Logo" className="sidebar-logo" />
           <h2 className="sidebar-title">Cacao & Crumb</h2>
         </div>
 
@@ -372,7 +383,7 @@ export default function Dashboard() {
         <header className="top-bar">
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <img 
-              src="/sweet_shop_logo.png" 
+              src="/cacaoncrumb_logo.png" 
               alt="Cacao & Crumb Logo" 
               className="top-bar-logo" 
             />
@@ -793,7 +804,7 @@ export default function Dashboard() {
                             type="email" 
                             className="form-input" 
                             style={{ paddingLeft: '16px' }}
-                            placeholder="e.g. newadmin@sweetshop.in"
+                            placeholder="e.g. newadmin@cacaoncrumb.com"
                             value={newAdminEmail} 
                             onChange={(e) => setNewAdminEmail(e.target.value)} 
                             required 
@@ -831,7 +842,7 @@ export default function Dashboard() {
         <div className="global-loader-overlay">
           <div className="loader-spinner-wrap">
             <div className="loader-circle-spinner"></div>
-            <img src="/sweet_shop_logo.png" alt="Pulsing Cake" className="loader-logo-pulsing" />
+            <img src="/cacaoncrumb_logo.png" alt="Pulsing Cake" className="loader-logo-pulsing" />
           </div>
           <p className="loader-text">Saving sweet changes...</p>
         </div>
